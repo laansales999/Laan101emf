@@ -1,29 +1,580 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exquisite Madiwa Flavors</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-        
-        :root {
-            --primary-blue: #0c4da2;
-            --dark-blue: #0a192f;
-            --gold: #f59e0b;
-            --light-bg: rgba(255, 255, 255, 0.05);
-            --light-text: #f8f8f8;
-            --dark-text: #1e293b;
-        }
-        
-        body {
-            background: linear-gradient(135deg, var(--dark-blue) 0%, #1e3a8a 100%);
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>LananSales101 • Exquisite Madiwa Flavors</title>
+<meta name="theme-color" content="#0f172a">
+<style>
+  :root{
+    --bg:#0b0f19; --card:#101727; --muted:#7280a7; --accent:#00e091; --accent2:#66e3ff; --ring:#213055;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,sans-serif;background:linear-gradient(180deg,#090d16,#0c1221 40%,#0b1120);color:#e5eefc}
+  a{color:inherit}
+  img{max-width:100%;height:auto;border-radius:16px;display:block}
+  .container{max-width:1080px;margin:0 auto;padding:16px}
+  header{position:sticky;top:0;z-index:40;background:rgba(11,17,32,.75);backdrop-filter:blur(10px);border-bottom:1px solid #1d2740}
+  header .brand{display:flex;align-items:center;justify-content:center;gap:12px;padding:10px 0}
+  header .brand img{height:56px;width:56px;object-fit:cover;border-radius:9999px;border:2px solid #20305a;box-shadow:0 0 0 3px #0b1326}
+  header h1{font-size:clamp(18px,3.5vw,28px);margin:0;font-weight:750;letter-spacing:.4px}
+  .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;align-items:center;margin-top:14px}
+  .hero > div, .card{background:linear-gradient(180deg,#0e1629,#0a1222);border:1px solid #1d2740;border-radius:20px;padding:16px}
+  @media (max-width:900px){.hero{grid-template-columns:1fr}}
+  .subtle{color:var(--muted);font-size:14px}
+  .btn{appearance:none;border:1px solid #2a375d;background:#0e1a33;color:#e7f2ff;border-radius:12px;padding:10px 14px;line-height:1;font-weight:600;cursor:pointer;transition:.2s;box-shadow:inset 0 0 0 1px #1a2748}
+  .btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,0,0,.25),inset 0 0 0 1px var(--ring)}
+  .btn.primary{background:linear-gradient(135deg,var(--accent),#40b3ff);color:#07121e;border:none}
+  .btn.ghost{background:transparent}
+  .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+  .span-12{grid-column:span 12}
+  .span-6{grid-column:span 6}
+  .span-4{grid-column:span 4}
+  @media (max-width:900px){.span-6{grid-column:span 12}.span-4{grid-column:span 12}}
+  .pill{display:inline-flex;gap:8px;align-items:center;background:#0f1a33;border:1px solid #223258;color:#b9d0ff;border-radius:999px;padding:6px 10px;font-size:12px}
+  .menu-title{font-weight:800;font-size:clamp(18px,3vw,24px);margin:4px 0 12px}
+  .product{display:flex;flex-direction:column;gap:10px;background:linear-gradient(180deg,#0f172a,#0b1223);border:1px solid #1c2846;border-radius:18px;padding:12px}
+  .product .name{font-weight:700;letter-spacing:.2px}
+  .price{font-weight:800}
+  .row{display:flex;gap:10px;flex-wrap:wrap}
+  .qty{display:flex;align-items:center;border:1px solid #223258;border-radius:12px;overflow:hidden}
+  .qty button{all:unset;cursor:pointer;padding:8px 12px;background:#0f1a33}
+  .qty input{all:unset;width:48px;text-align:center;padding:8px 0;background:#0f152a}
+  .select, select{appearance:none;background:#0e172b;border:1px solid #223258;border-radius:12px;padding:8px 10px;color:#e6f0ff}
+  .muted{color:#9fb4df}
+  .notice{border-left:3px solid var(--accent2);padding:8px 12px;background:#0a1428;border-radius:8px}
+  /* Cart drawer */
+  .cart-toggle{position:fixed;right:16px;bottom:16px;z-index:60}
+  .drawer{position:fixed;top:0;right:-420px;width:420px;max-width:92vw;height:100%;background:#0a1222;border-left:1px solid #213055;box-shadow:-14px 0 40px rgba(0,0,0,.45);transition:right .25s ease;z-index:70;display:flex;flex-direction:column}
+  .drawer.open{right:0}
+  .drawer header{position:sticky;top:0;background:#0a1222;border-bottom:1px solid #213055}
+  .drawer .content{padding:14px;overflow:auto;flex:1}
+  .cart-line{display:grid;grid-template-columns:1fr auto auto auto;gap:8px;align-items:center;padding:10px;border:1px solid #1b2644;border-radius:12px;margin-bottom:10px;background:linear-gradient(180deg,#0f172a,#0a1222)}
+  .cart-empty{padding:20px;border:1px dashed #2a3966;border-radius:12px;text-align:center;color:#9fb4df}
+  .total{display:flex;justify-content:space-between;align-items:center;font-weight:800;padding:10px 12px;border-top:1px dashed #334167}
+  .section-title{font-weight:800;font-size:20px;margin:4px 0 10px}
+  footer{margin-top:40px;border-top:1px solid #1d2740;background:#081020}
+  footer .container{display:grid;gap:10px}
+  small, .fine{font-size:12px;color:#92a8d8}
+  .loc-chip{display:inline-flex;align-items:center;gap:8px;border:1px solid #22406a;background:#0b1730;border-radius:999px;padding:6px 10px}
+  .tag{font-size:11px;letter-spacing:.2px;color:#9fb4df}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <img src="https://github.com/laansales999/Laan101emf/blob/main/Images/Screenshot_20250831_070816_Gallery.jpg" alt="Exquisite Madiwa Flavors Logo" />
+    <h1>LananSales101 • Exquisite Madiwa Flavors</h1>
+  </div>
+</header>
+
+<main class="container">
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <div class="pill">🎪 Live-Shop • Zero Pitch • Order & Chill</div>
+      <h2 style="margin:.4rem 0 0;font-size:clamp(22px,4vw,34px);font-weight:900;letter-spacing:.3px">
+        Order from the crowd — we’ll find you wherever you’re vibing.
+      </h2>
+      <p class="subtle" style="margin-top:8px">
+        Grant location access so runners can deliver fast. Your phone number doubles as your Order ID.
+      </p>
+      <div class="row" style="margin-top:10px">
+        <button id="enableLocationBtn" class="btn primary">🗺️ Turn On Live Location</button>
+        <button id="refreshLocationBtn" class="btn ghost">↻ Refresh</button>
+        <span id="locStatus" class="loc-chip">📍 <span>Location: awaiting permission…</span></span>
+      </div>
+      <div class="notice" style="margin-top:10px">
+        <strong>Privacy:</strong> We only attach live GPS (lat, lon, accuracy) to your order. No tracking after you close the page.
+      </div>
+    </div>
+    <div>
+      <img src="https://github.com/laansales999/Laan101emf/blob/main/Images/Screenshot_20250831_072244_Gallery.jpg"
+           alt="Event Poster">
+    </div>
+  </section>
+
+  <!-- Vendor Profile -->
+  <section class="card" style="margin-top:18px">
+    <div class="grid">
+      <div class="span-6">
+        <img src="https://github.com/laansales999/Laan101emf/blob/main/Images/Screenshot_20250831_070939_Gallery.jpg"
+             alt="Exquisite Madiwa Flavors Poster" />
+      </div>
+      <div class="span-6">
+        <div class="pill">👑 Vendor Profile</div>
+        <h3 class="menu-title">Exquisite Madiwa Flavors (EMF)</h3>
+        <p class="muted">
+          Street–gourmet fries crowned with juicy mishkaki and signature sauces. Fresh-pressed juices and magic mojitos
+          crafted on-site. Tap to add, we’ll bring it to your spot.
+        </p>
+        <div class="row" style="margin-top:8px">
+          <div class="pill">M-Pesa Pay Bill: <strong>542 542</strong></div>
+          <div class="pill">Acc No: <strong>786 867</strong></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sizes Visual -->
+  <section class="card" style="margin-top:18px">
+    <div class="grid">
+      <div class="span-6">
+        <div class="pill">🥤 Sizes</div>
+        <h3 class="menu-title">Juice & Mojito Cup Sizes</h3>
+        <ul class="muted" style="margin-top:8px;line-height:1.8">
+          <li><strong>Small</strong> — Fresh Juices: <span class="price">250/-</span> • Mojitos: <span class="price">300/-</span></li>
+          <li><strong>Medium</strong> — Fresh Juices: <span class="price">350/-</span> • Mojitos: <span class="price">400/-</span></li>
+          <li><strong>Large</strong> — Fresh Juices: <span class="price">450/-</span> • Mojitos: <span class="price">500/-</span></li>
+        </ul>
+      </div>
+      <div class="span-6">
+        <img src="https://github.com/laansales999/Laan101emf/blob/main/Images/Screenshot_20250831_071625_Gallery.jpg"
+             alt="Drinking cups showing sizes" />
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section class="card" style="margin-top:18px">
+    <div class="menu-title">🍟 Fries & ‘Kak</div>
+    <div class="grid">
+      <div class="span-6">
+        <div class="product">
+          <img src="https://github.com/laansales999/Laan101emf/blob/main/Images/Screenshot_20250831_070743_Gallery.jpg" alt="Classic Crunch" />
+          <div class="name">Classic Crunch</div>
+          <div class="muted">Fries + 10 pcs mishkaki + chef’s signature sauce</div>
+          <div class="row">
+            <span class="price">KES 450/-</span>
+            <button class="btn" onclick="addItem('Classic Crunch','Fries & Kak',450, 1)">Add</button>
+          </div>
+        </div>
+      </div>
+      <div class="span-6">
+        <div class="product">
+          <img src="https://github.com/laansales999/Laan101emf/blob/main/Images/Screenshot_20250831_070759_Gallery.jpg" alt="Grand Sultan" />
+          <div class="name">Grand Sultan</div>
+          <div class="muted">Mega fries loaded w/ 15 pcs mishkaki + special sauce</div>
+          <div class="row">
+            <span class="price">KES 550/-</span>
+            <button class="btn" onclick="addItem('Grand Sultan','Fries & Kak',550, 1)">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="tag" style="margin-top:8px">Add-on: Extra Mishkaki skewer +100/- (see cart)</p>
+  </section>
+
+  <section class="card" style="margin-top:18px">
+    <div class="menu-title">🍍 Fresh Juice</div>
+    <div class="grid">
+      <!-- Tangy Passion -->
+      <div class="span-4">
+        <div class="product">
+          <img src="https://github.com/laansales999/Laan101emf/blob/main/Images/Screenshot_20250831_070846_Gallery.jpg" alt="Tangy Passion" />
+          <div class="name">Tangy Passion</div>
+          <div class="row">
+            <select class="select" id="size-juice-1">
+              <option value="small">Small — 250</option>
+              <option value="medium">Medium — 350</option>
+              <option value="large">Large — 450</option>
+            </select>
+            <div class="qty">
+              <button onclick="stepQty(this,-1)">−</button>
+              <input type="text" value="1" inputmode="numeric">
+              <button onclick="stepQty(this,1)">+</button>
+            </div>
+            <button class="btn" onclick="addJuice('Tangy Passion','size-juice-1', this)">Add</button>
+          </div>
+        </div>
+      </div>
+      <!-- Mango Rush -->
+      <div class="span-4">
+        <div class="product">
+          <img src="https://github.com/laansales999/Laan101emf/blob/main/Images/Screenshot_20250831_070846_Gallery.jpg" alt="Mango Rush" />
+          <div class="name">Mango Rush</div>
+          <div class="row">
+            <select class="select" id="size-juice-2">
+              <option value="small">Small — 250</option>
+              <option value="medium">Medium — 350</option>
+              <option value="large">Large — 450</option>
+            </select>
+            <div class="qty">
+              <button onclick="stepQty(this,-1)">−</button>
+              <input type="text" value="1" inputmode="numeric">
+              <button onclick="stepQty(this,1)">+</button>
+            </div>
+            <button class="btn" onclick="addJuice('Mango Rush','size-juice-2', this)">Add</button>
+          </div>
+        </div>
+      </div>
+      <!-- Le' Pineapple De' Mint -->
+      <div class="span-4">
+        <div class="product">
+          <img src="https://github.com/laansales999/Laan101emf/blob/main/Images/Screenshot_20250831_070851_Gallery.jpg" alt="Le’ Pineapple De’ Mint" />
+          <div class="name">Le’ Pineapple De’ Mint</div>
+          <div class="row">
+            <select class="select" id="size-juice-3">
+              <option value="small">Small — 250</option>
+              <option value="medium">Medium — 350</option>
+              <option value="large">Large — 450</option>
+            </select>
+            <div class="qty">
+              <button onclick="stepQty(this,-1)">−</button>
+              <input type="text" value="1" inputmode="numeric">
+              <button onclick="stepQty(this,1)">+</button>
+            </div>
+            <button class="btn" onclick="addJuice('Le’ Pineapple De’ Mint','size-juice-3', this)">Add</button>
+          </div>
+        </div>
+      </div>
+      <!-- Tropical Mix -->
+      <div class="span-4">
+        <div class="product">
+          <img src="https://github.com/laansales999/Laan101emf/blob/main/Images/Screenshot_20250831_070856_Gallery.jpg" alt="Tropical Mix" />
+          <div class="name">Tropical Mix</div>
+          <div class="row">
+            <select class="select" id="size-juice-4">
+              <option value="small">Small — 250</option>
+              <option value="medium">Medium — 350</option>
+              <option value="large">Large — 450</option>
+            </select>
+            <div class="qty">
+              <button onclick="stepQty(this,-1)">−</button>
+              <input type="text" value="1" inputmode="numeric">
+              <button onclick="stepQty(this,1)">+</button>
+            </div>
+            <button class="btn" onclick="addJuice('Tropical Mix','size-juice-4', this)">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" style="margin-top:18px">
+    <div class="menu-title">✨ Magic Mojitos</div>
+    <div class="grid">
+      <!-- Blue Lagoon -->
+      <div class="span-4">
+        <div class="product">
+          <img src="https://github.com/laansales999/Laan101emf/blob/main/Images/Screenshot_20250831_070907_Gallery.jpg" alt="Blue Lagoon" />
+          <div class="name">Blue Lagoon</div>
+          <div class="row">
+            <select class="select" id="size-mojito-1">
+              <option value="small">Small — 300</option>
+              <option value="medium">Medium — 400</option>
+              <option value="large">Large — 500</option>
+            </select>
+            <div class="qty">
+              <button onclick="stepQty(this,-1)">−</button>
+              <input type="text" value="1" inputmode="numeric">
+              <button onclick="stepQty(this,1)">+</button>
+            </div>
+            <button class="btn" onclick="addMojito('Blue Lagoon','size-mojito-1', this)">Add</button>
+          </div>
+        </div>
+      </div>
+      <!-- Red Flash -->
+      <div class="span-4">
+        <div class="product">
+          <img src="https://github.com/laansales999/Laan101emf/blob/main/Images/Screenshot_20250831_070912_Gallery.jpg" alt="Red Flash" />
+          <div class="name">Red Flash</div>
+          <div class="row">
+            <select class="select" id="size-mojito-2">
+              <option value="small">Small — 300</option>
+              <option value="medium">Medium — 400</option>
+              <option value="large">Large — 500</option>
+            </select>
+            <div class="qty">
+              <button onclick="stepQty(this,-1)">−</button>
+              <input type="text" value="1" inputmode="numeric">
+              <button onclick="stepQty(this,1)">+</button>
+            </div>
+            <button class="btn" onclick="addMojito('Red Flash','size-mojito-2', this)">Add</button>
+          </div>
+        </div>
+      </div>
+      <!-- Berry Breeze -->
+      <div class="span-4">
+        <div class="product">
+          <img src="https://github.com/laansales999/Laan101emf/blob/main/Images/Screenshot_20250831_070921_Gallery.jpg" alt="Berry Breeze" />
+          <div class="name">Berry Breeze</div>
+          <div class="row">
+            <select class="select" id="size-mojito-3">
+              <option value="small">Small — 300</option>
+              <option value="medium">Medium — 400</option>
+              <option value="large">Large — 500</option>
+            </select>
+            <div class="qty">
+              <button onclick="stepQty(this,-1)">−</button>
+              <input type="text" value="1" inputmode="numeric">
+              <button onclick="stepQty(this,1)">+</button>
+            </div>
+            <button class="btn" onclick="addMojito('Berry Breeze','size-mojito-3', this)">Add</button>
+          </div>
+        </div>
+      </div>
+      <!-- Ginger Gold -->
+      <div class="span-4">
+        <div class="product">
+          <img src="https://github.com/laansales999/Laan101emf/blob/main/Images/Screenshot_20250831_070926_Gallery.jpg" alt="Ginger Gold" />
+          <div class="name">Ginger Gold</div>
+          <div class="row">
+            <select class="select" id="size-mojito-4">
+              <option value="small">Small — 300</option>
+              <option value="medium">Medium — 400</option>
+              <option value="large">Large — 500</option>
+            </select>
+            <div class="qty">
+              <button onclick="stepQty(this,-1)">−</button>
+              <input type="text" value="1" inputmode="numeric">
+              <button onclick="stepQty(this,1)">+</button>
+            </div>
+            <button class="btn" onclick="addMojito('Ginger Gold','size-mojito-4', this)">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Checkout (always visible below menu) -->
+  <section class="card" style="margin-top:18px">
+    <div class="menu-title">🧾 Delivery Details</div>
+    <div class="grid">
+      <div class="span-6">
+        <label class="tag">Client Name</label>
+        <input id="clientName" class="select" placeholder="Your name">
+      </div>
+      <div class="span-6">
+        <label class="tag">Phone Number (Used as Order ID)</label>
+        <input id="clientPhone" class="select" placeholder="e.g., 07XXXXXXXX or 011XXXXXXX">
+      </div>
+      <div class="span-12">
+        <label class="tag">Dressing Description (what you’re wearing)</label>
+        <input id="clientDress" class="select" placeholder="e.g., red cap, black hoodie, white sneakers">
+      </div>
+      <div class="span-12">
+        <div class="notice fine" id="accNotice">Accuracy target: ≤ 3 m. Current: —</div>
+      </div>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <button class="btn primary" onclick="openCart()">🛒 Review Cart & Send via WhatsApp</button>
+      <button class="btn" onclick="addItem('Extra Mishkaki Skewer','Add-on',100,1)">+ Add Extra Mishkaki (100/-)</button>
+    </div>
+  </section>
+</main>
+
+<!-- CART DRAWER -->
+<aside id="drawer" class="drawer" aria-hidden="true">
+  <header style="padding:10px 14px">
+    <div class="row" style="justify-content:space-between;align-items:center">
+      <strong>Order Cart</strong>
+      <button class="btn" onclick="closeCart()">✕ Close</button>
+    </div>
+  </header>
+  <div class="content">
+    <div id="cartLines"></div>
+    <div class="cart-empty" id="cartEmpty">Your cart is empty. Add tasty things from the menu 🍟🥤</div>
+  </div>
+  <div style="padding:12px;border-top:1px solid #223258">
+    <div class="total">
+      <span>Total</span>
+      <span id="cartTotal">KES 0/-</span>
+    </div>
+    <button class="btn primary" style="width:100%;margin-top:10px" onclick="sendWhatsApp()">✅ Confirm & Send to WhatsApp</button>
+    <small class="fine">Orders go to <strong>+254 115 030 726</strong> on WhatsApp with your live location.</small>
+  </div>
+</aside>
+
+<button class="btn primary cart-toggle" onclick="openCart()">🛒 Cart</button>
+
+<footer>
+  <div class="container">
+    <div class="section-title">About</div>
+    <p class="muted">
+      LananSales101 was born to remove the awkward pitch from fun events. Browse quietly, tap your order, share a live
+      pin, and keep vibing while our runners find you. Exquisite Madiwa Flavors serves the goodness; Lanan handles the
+      flow. Hakuna pressure — just flavor and fast delivery.
+    </p>
+    <p class="fine">Contact: <a href="mailto:emflavors@gmail.com">emflavors@gmail.com</a></p>
+    <p class="fine">© 2025 Exquisite Madiwa Flavors • Built with ❤️ for smooth event shopping.</p>
+  </div>
+</footer>
+
+<script>
+/* ---------- Prices ---------- */
+const PRICES = {
+  juice: { small: 250, medium: 350, large: 450 },
+  mojito: { small: 300, medium: 400, large: 500 }
+};
+
+/* ---------- Cart State ---------- */
+let cart = []; // {id, name, category, unit, qty, size?}
+let itemId = 1;
+
+function currency(v){ return `KES ${v.toLocaleString()} /-`; }
+
+function addItem(name, category, unit, qty){
+  const existing = cart.find(i => i.name===name && i.unit===unit && !i.size);
+  if(existing){ existing.qty += qty; }
+  else cart.push({id:itemId++, name, category, unit, qty});
+  renderCart();
+  openCart();
+}
+
+function stepQty(btn, delta){
+  const input = btn.parentElement.querySelector('input');
+  let v = parseInt(input.value||'1',10);
+  v = Math.max(1, v + delta);
+  input.value = v;
+}
+
+function addJuice(name, sizeSelectId, btn){
+  const size = document.getElementById(sizeSelectId).value;
+  const qty = parseInt(btn.parentElement.querySelector('input').value,10) || 1;
+  const unit = PRICES.juice[size];
+  const existing = cart.find(i => i.name===name && i.size===size && i.unit===unit);
+  if(existing){ existing.qty += qty; }
+  else cart.push({id:itemId++, name, category:'Fresh Juice', unit, qty, size});
+  renderCart(); openCart();
+}
+
+function addMojito(name, sizeSelectId, btn){
+  const size = document.getElementById(sizeSelectId).value;
+  const qty = parseInt(btn.parentElement.querySelector('input').value,10) || 1;
+  const unit = PRICES.mojito[size];
+  const existing = cart.find(i => i.name===name && i.size===size && i.unit===unit);
+  if(existing){ existing.qty += qty; }
+  else cart.push({id:itemId++, name, category:'Magic Mojito', unit, qty, size});
+  renderCart(); openCart();
+}
+
+function removeItem(id){
+  cart = cart.filter(i => i.id!==id);
+  renderCart();
+}
+
+function renderCart(){
+  const wrap = document.getElementById('cartLines');
+  const empty = document.getElementById('cartEmpty');
+  wrap.innerHTML = '';
+  if(cart.length===0){ empty.style.display='block'; }
+  else{
+    empty.style.display='none';
+    cart.forEach(i=>{
+      const line = document.createElement('div');
+      line.className = 'cart-line';
+      const name = document.createElement('div');
+      name.innerHTML = `<strong>${i.name}</strong><br><span class="fine">${i.category}${i.size? ' • '+i.size:''}</span>`;
+      const unit = document.createElement('div'); unit.className='fine'; unit.textContent = currency(i.unit);
+      const qty = document.createElement('div'); qty.className='fine'; qty.textContent = '× ' + i.qty;
+      const del = document.createElement('button'); del.className='btn'; del.textContent='Delete'; del.onclick=()=>removeItem(i.id);
+      line.append(name,unit,qty,del);
+      wrap.appendChild(line);
+    });
+  }
+  document.getElementById('cartTotal').textContent = currency(total());
+}
+
+function total(){ return cart.reduce((s,i)=>s + i.unit*i.qty, 0); }
+
+/* ---------- Drawer ---------- */
+const drawer = document.getElementById('drawer');
+function openCart(){ drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); }
+function closeCart(){ drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true'); }
+
+/* ---------- Location ---------- */
+let geoWatchId = null;
+let userLocation = { lat:null, lon:null, acc:null, ts:null };
+
+const locStatus = document.getElementById('locStatus').querySelector('span');
+const accNotice = document.getElementById('accNotice');
+
+function startLocation(){
+  if(!navigator.geolocation){
+    locStatus.textContent = 'Geolocation not supported on this device.';
+    return;
+  }
+  if(geoWatchId!==null) navigator.geolocation.clearWatch(geoWatchId);
+  geoWatchId = navigator.geolocation.watchPosition(onGeo, onGeoError, {
+    enableHighAccuracy: true, maximumAge: 0, timeout: 15000
+  });
+  locStatus.textContent = 'Seeking precise fix…';
+}
+
+function onGeo(pos){
+  const { latitude, longitude, accuracy } = pos.coords;
+  userLocation = { lat:latitude, lon:longitude, acc:accuracy, ts:new Date().toISOString() };
+  const m = accuracy?.toFixed ? accuracy.toFixed(1) : accuracy;
+  locStatus.textContent = `OK • ${latitude.toFixed(6)}, ${longitude.toFixed(6)} • ±${m} m`;
+  accNotice.textContent = `Accuracy target: ≤ 3 m. Current: ±${m} m. ${accuracy<=3 ? '✅ Locked' : 'Tip: keep your phone open under the sky for best accuracy.'}`;
+}
+
+function onGeoError(err){
+  locStatus.textContent = `Location error: ${err.message}`;
+  accNotice.textContent = `Accuracy target: ≤ 3 m. Current: unavailable. Grant permission and try again.`;
+}
+
+document.getElementById('enableLocationBtn').addEventListener('click', startLocation);
+document.getElementById('refreshLocationBtn').addEventListener('click', startLocation);
+
+/* Request on first open */
+window.addEventListener('load', ()=> setTimeout(startLocation, 600));
+
+/* ---------- WhatsApp ---------- */
+function sendWhatsApp(){
+  if(cart.length===0){ alert('Your cart is empty. Please add items.'); return; }
+
+  const name = (document.getElementById('clientName').value||'').trim();
+  const phone = (document.getElementById('clientPhone').value||'').trim();
+  const dress = (document.getElementById('clientDress').value||'').trim();
+
+  if(!name || !phone){ alert('Please enter your name and phone number (Order ID).'); return; }
+
+  // Format recipient (Kenya): +254 115 030 726
+  const recipient = '254115030726';
+
+  // Build order text
+  const lines = [];
+  lines.push('*LANANSALES101 • EMF ORDER*');
+  lines.push(`Name: ${name}`);
+  lines.push(`Order ID (Phone): ${phone}`);
+  if(dress) lines.push(`Dressing: ${dress}`);
+  lines.push('');
+  lines.push('*Items*');
+  cart.forEach(i=>{
+    const sizeStr = i.size ? ` (${i.size})` : '';
+    lines.push(`• ${i.name}${sizeStr} — ${i.qty} × ${i.unit}/-`);
+  });
+  lines.push(`*TOTAL: ${total()}/-*`);
+  lines.push('');
+  // Location
+  if(userLocation.lat && userLocation.lon){
+    const {lat,lon,acc} = userLocation;
+    lines.push(`Location: ${lat}, ${lon} (±${acc?.toFixed ? userLocation.acc.toFixed(1): userLocation.acc} m)`);
+    lines.push(`Map: https://maps.google.com/?q=${lat},${lon}`);
+  }else{
+    lines.push('Location: Not available (customer denied / GPS off).');
+  }
+  lines.push('');
+  lines.push('_Auto-generated via LananSales101_');
+
+  const message = encodeURIComponent(lines.join('\n'));
+  const url = `https://wa.me/${recipient}?text=${message}`;
+  window.open(url, '_blank');
+
+  // Optional: keep their cart but you can clear if desired:
+  // cart = []; renderCart();
+}
+
+/* Input helpers: numeric only for phone */
+document.getElementById('clientPhone').addEventListener('input', e=>{
+  e.target.value = e.target.value.replace(/[^\d+]/g,'');
+});
+</script>
+</body>
+</html>
             color: var(--light-text);
             line-height: 1.6;
             padding-bottom: 80px;
