@@ -39,7 +39,7 @@
             padding: 20px;
         }
         
-        /* Header Styles */
+        /* Header Styles - FIXED */
         .main-header {
             position: fixed;
             top: 0;
@@ -48,13 +48,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px 0;
+            padding: 10px 0;
             background: rgba(10, 25, 47, 0.95);
             backdrop-filter: blur(10px);
             z-index: 10000;
             transition: var(--transition);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
             border-bottom: 2px solid var(--gold);
+            height: 70px;
         }
         
         .header-hidden {
@@ -69,7 +70,7 @@
         }
         
         .logo {
-            width: 180px;
+            width: 120px;
             height: auto;
             transition: var(--transition);
         }
@@ -81,8 +82,8 @@
         .tagline {
             font-style: italic;
             color: var(--gold);
-            margin-top: 10px;
-            font-size: 1.2rem;
+            margin-top: 5px;
+            font-size: 0.9rem;
             font-family: 'Playfair Display', serif;
         }
         
@@ -159,7 +160,7 @@
         
         /* Main Content */
         .main-content {
-            padding-top: 120px;
+            padding-top: 90px;
         }
         
         .location-prompt {
@@ -709,7 +710,7 @@
         
         .cart-toggle:hover {
             transform: scale(1.1);
-            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.5);
+            box-shadow: 0 8px极市25px rgba(245, 158, 11, 0.5);
         }
         
         .cart-badge {
@@ -781,15 +782,20 @@
             }
             
             .main-header {
-                padding: 15px 0;
+                padding: 8px 0;
+                height: 60px;
             }
             
             .logo {
-                width: 150px;
+                width: 100px;
             }
             
             .tagline {
-                font-size: 1rem;
+                font-size: 0.8rem;
+            }
+            
+            .main-content {
+                padding-top: 80px;
             }
         }
         
@@ -817,6 +823,18 @@
             
             .item-price {
                 font-size: 20px;
+            }
+            
+            .main-header {
+                height: 55px;
+            }
+            
+            .logo {
+                width: 90px;
+            }
+            
+            .tagline {
+                display: none;
             }
         }
     </style>
@@ -981,7 +999,7 @@
                                 <div class="quantity-controls">
                                     <button class="quantity-btn minus" data-item="pineapple-mint">-</button>
                                     <span class="quantity" data-item="pineapple-mint">0</span>
-                                    <button class="quantity-btn plus" data-item="pineapple-mint">+</button>
+                                    <button class="quantity-btn plus" data-item="pineapple-mint">-</button>
                                 </div>
                                 <button class="btn add-to-cart" data-item="pineapple-mint" data-price="250">Add to Cart</button>
                             </div>
@@ -1090,7 +1108,7 @@
                             <div class="size-options">
                                 <button class="size-btn active" data-item="ginger-gold" data-size="small" data-price="300">Small: 300/-</button>
                                 <button class="size-btn" data-item="ginger-gold" data-size="medium" data-price="400">Medium: 400/-</button>
-                                <button class="size-btn" data-item="ginger-gold" data-size="large" data-price="500">Large: 500/-</button>
+                                <button class="size-btn" data-item="ginger-gold" data-size="large" data-price="500">Large: 极市500/-</button>
                             </div>
                             <div class="item-controls">
                                 <div class="quantity-controls">
@@ -1218,7 +1236,7 @@
         window.addEventListener('scroll', function() {
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             
-            if (scrollTop > lastScrollTop && scrollTop > 200) {
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
                 // Scrolling down
                 mainHeader.classList.add('header-hidden');
             } else {
@@ -1416,7 +1434,7 @@
                 cartItems.appendChild(cartItemEl);
             });
             
-            cartCount.textContent = `${itemCount} ${itemCount === 1 ? 'item' : 'items'}`;
+            cartCount.textContent = `${itemCount} ${itemCount === 极市1 ? 'item' : 'items'}`;
             cartTotal.textContent = `${total}/-`;
             cartBadge.textContent = itemCount;
             
@@ -1482,7 +1500,7 @@
                 orderSummary += `- ${formatItemName(item.name)}${sizeInfo} x ${item.quantity} = ${item.price * item.quantity}/-\n`;
             });
             
-            orderSummary += `\n*Total: ${cart.reduce((total, item) => total + (item.price * item.quantity), 0)}/-*\n\n`;
+            orderSummary += `\n*Total: ${cart.reduce((total, item) => total + (item.price * item.quantity), 极市0)}/-*\n\n`;
             
             const dressing = document.getElementById('dressing').value;
             if (dressing) {
@@ -1500,14 +1518,14 @@
             // Open WhatsApp
             window.open(whatsappURL, '_blank');
             
-            // Reset cart and form
+            // Reset极市 cart and form
             cart = [];
             updateCart();
             checkoutForm.style.display = 'none';
             document.getElementById('name').value = '';
             document.getElementById('phone').value = '';
             document.getElementById('dressing').value = '';
-            document.getElementById('location-details').value = '';
+            document.getElementById极市('location-details').value = '';
             
             alert('Your order has been placed! You will be redirected to WhatsApp to confirm.');
         });
@@ -1515,7 +1533,7 @@
         // Countdown timer for special offer
         function updateCountdown() {
             const now = new Date();
-            const minutes = now.getMinutes();
+            const minutes极市 = now.getMinutes();
             const seconds = now.getSeconds();
             
             if (minutes < 20) {
