@@ -39,7 +39,7 @@
             padding: 20px;
         }
         
-        /* Header Styles - FIXED */
+        /* Header Styles - COMPACT & ELEGANT */
         .main-header {
             position: fixed;
             top: 0;
@@ -48,20 +48,105 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 10px 0;
-            background: rgba(10, 25, 47, 0.95);
+            padding: 5px 0;
+            background: rgba(10, 25, 47, 0.97);
             backdrop-filter: blur(10px);
             z-index: 10000;
             transition: var(--transition);
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-            border-bottom: 2px solid var(--gold);
-            height: 70px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid var(--gold);
+            height: 50px;
         }
         
         .header-hidden {
             transform: translateY(-100%);
             opacity: 0;
         }
+        
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .logo {
+            width: 100px;
+            height: auto;
+            transition: var(--transition);
+        }
+        
+        .tagline {
+            display: none; /* Hidden for compact header */
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding-top: 70px;
+        }
+        
+        /* Rest of the CSS remains the same as before */
+        .location-prompt {
+            background: rgba(14, 165, 233, 0.15);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* ... (rest of your CSS styles) ... */
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header with Logo -->
+        <header class="main-header" id="main-header">
+            <div class="logo-container">
+                <img src="https://raw.githubusercontent.com/laansales999/Laan101emf/main/Images/Screenshot_20250831_070816_Gallery.jpg" alt="Laansale Logo" class="logo">
+            </div>
+        </header>
+
+        <div class="main-content">
+            <!-- Your content here -->
+            <section class="location-prompt fade-in">
+                <h2><i class="fas fa-location-dot"></i> Enable Your Location</h2>
+                <p>To serve you better and provide accurate delivery, please enable location services</p>
+                <button class="btn" id="enableLocation">Enable Location</button>
+                <p id="locationStatus" style="margin-top: 15px;"></p>
+            </section>
+            
+            <!-- Rest of your content -->
+        </div>
+        
+        <!-- Rest of your HTML -->
+    </div>
+
+    <script>
+        // Header scroll behavior
+        let lastScrollTop = 0;
+        const mainHeader = document.getElementById('main-header');
+        
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > 50) {
+                // Scrolling down
+                mainHeader.classList.add('header-hidden');
+            } else {
+                // Scrolling up
+                mainHeader.classList.remove('header-hidden');
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+        
+        // Rest of your JavaScript
+    </script>
+</body>
+</html>
         
         .logo-container {
             display: flex;
